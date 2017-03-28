@@ -28,7 +28,7 @@ Give [hashing it](https://gist.github.com/chatchavan/3c58511e3d48f478b0c2#append
 
 The output will be something like `(stdin)= 31d6cfe0d16ae931b73c59d7e0c089c0` - the string after the equals sign is your hash. After hashing your password, clear input history with `history -c`
 
-`sudo` edit `/etc/wpa_supplicant/wpa_supplicant.conf` and add the following for enterprise configuration:
+Use `sudo` to open `/etc/wpa_supplicant/wpa_supplicant.conf` and add the following for enterprise configuration:
 
 ```
 network={
