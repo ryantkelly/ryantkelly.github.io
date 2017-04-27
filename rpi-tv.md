@@ -101,6 +101,6 @@ Comment=Start Chromium when GNOME starts
 
 ## Problems
 
-Despite setting `--disable-session-crashed-bubble`, I have still gotten this error message intermittently. But if I SSH into the Pi and a smooth reboot, it boots back into kiosk mode without that message appearing.
+Despite setting `--disable-session-crashed-bubble`, I have still gotten this error message intermittently. But if I SSH into the Pi and reboot, it boots back into kiosk mode without that message appearing.
 
 Also, getting Chromium *out of* kiosk mode is a bit of a pain - only way I've been able to do it is to remove the `autoChromium.desktop` file, and reboot. However, as this Pi is dedicated to just loading and displaying a webpage, that is not something I need to do...really ever. Only if I want to do something else on a 60" TV in the office!
