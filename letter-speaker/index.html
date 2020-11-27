@@ -1,0 +1,188 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <section id="text-display">
+    A
+  </section>
+  
+  <!-- <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script> -->
+
+  <script>
+    var sounds = {
+      "A" : {
+        url : "audio/A.mp3",
+      },
+      "B" : {
+        url : "audio/B.mp3",
+      },
+      "C" : {
+        url : "audio/C.mp3"
+      },
+      "D" : {
+        url : "audio/D.mp3"
+      },
+      "E" : {
+        url : "audio/E.mp3"
+      },
+      "F" : {
+        url : "audio/F.mp3"
+      },
+      "G" : {
+        url : "audio/G.mp3"
+      },
+      "H" : {
+        url : "audio/H.mp3"
+      },
+      "I" : {
+        url : "audio/I.mp3"
+      },
+      "J" : {
+        url : "audio/J.mp3"
+      },
+      "K" : {
+        url : "audio/K.mp3"
+      },
+      "L" : {
+        url : "audio/L.mp3"
+      },
+      "M" : {
+        url : "audio/M.mp3"
+      },
+      "N" : {
+        url : "audio/N.mp3"
+      },
+      "O" : {
+        url : "audio/O.mp3"
+      },
+      "P" : {
+        url : "audio/P.mp3"
+      },
+      "Q" : {
+        url : "audio/Q.mp3"
+      },
+      "R" : {
+        url : "audio/R.mp3"
+      },
+      "S" : {
+        url : "audio/S.mp3"
+      },
+      "T" : {
+        url : "audio/T.mp3"
+      },
+      "U" : {
+        url : "audio/U.mp3"
+      },
+      "V" : {
+        url : "audio/V.mp3"
+      },
+      "W" : {
+        url : "audio/W.mp3"
+      },
+      "X" : {
+        url : "audio/X.mp3"
+      },
+      "Y" : {
+        url : "audio/Y.mp3"
+      },
+      "Z" : {
+        url : "audio/Z.mp3"
+      }
+    };
+    var keyLock = false;
+    var soundContext = new AudioContext();
+    
+    for(var key in sounds) {
+      loadSound(key);
+    }
+    
+    function loadSound(name){
+      var sound = sounds[name];
+    
+      var url = sound.url;
+      var buffer = sound.buffer;
+    
+      var request = new XMLHttpRequest();
+      request.open('GET', url, true);
+      request.responseType = 'arraybuffer';
+    
+      request.onload = function() {
+        soundContext.decodeAudioData(request.response, function(newBuffer) {
+          sound.buffer = newBuffer;
+        });
+      }
+    
+      request.send();
+    }
+    
+    function playSound(name, options){
+      var sound = sounds[name];
+      var soundVolume = sounds[name].volume || 1;
+    
+      var buffer = sound.buffer;
+      if(buffer){
+        var source = soundContext.createBufferSource();
+        source.buffer = buffer;
+    
+        var volume = soundContext.createGain();
+    
+        if(options) {
+          if(options.volume) {
+            volume.gain.value = soundVolume * options.volume;
+          }
+        } else {
+          volume.gain.value = soundVolume;
+        }
+    
+        volume.connect(soundContext.destination);
+        source.connect(volume);
+        keyLock = true
+        source.start(0);
+        source.addEventListener('ended', () => {
+          keyLock = false;
+        })
+      }
+    }
+    
+    const field = document.getElementById('text-display');
+    window.addEventListener('keydown', logKey);
+    
+    function logKey(e) {
+      if(keyLock === false){
+        k = e.key.toUpperCase();
+        if("ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(k) > -1){
+          field.textContent = e.key.toUpperCase();
+          playSound(k);
+        }  
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>
