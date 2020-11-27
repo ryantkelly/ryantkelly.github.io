@@ -110,59 +110,19 @@
     var keyLock = false;
     var soundContext = new AudioContext();
     
-    for(var key in sounds) {
-      loadSound(key);
-    }
-    
-    function loadSound(name){
-      var sound = sounds[name];
-    
-      var url = sound.url;
-      var buffer = sound.buffer;
-    
-      var request = new XMLHttpRequest();
-      request.open('GET', url, true);
-      request.responseType = 'arraybuffer';
-    
-      request.onload = function() {
-        soundContext.decodeAudioData(request.response, function(newBuffer) {
-          sound.buffer = newBuffer;
-        });
-      }
-    
-      request.send();
-    }
-    
-    function playSound(name, options){
-      var sound = sounds[name];
-      var soundVolume = sounds[name].volume || 1;
-    
-      var buffer = sound.buffer;
-      if(buffer){
-        var source = soundContext.createBufferSource();
-        source.buffer = buffer;
-    
-        var volume = soundContext.createGain();
-    
-        if(options) {
-          if(options.volume) {
-            volume.gain.value = soundVolume * options.volume;
-          }
-        } else {
-          volume.gain.value = soundVolume;
-        }
-    
-        volume.connect(soundContext.destination);
-        source.connect(volume);
-        keyLock = true
-        source.start(0);
-        source.addEventListener('ended', () => {
-          keyLock = false;
-        })
+    //load audio elements for each value of your sounds object on load
+    function loadAudio(soundsObject){
+      for (letter in soundsObject) {
+        let audioElement = document.createElement("audio");
+        audioElement.setAttribute("src", soundsObject[letter].url );
+        audioElement.setAttribute("id", letter );
+        document.body.appendChild(audioElement);
       }
     }
     
     const field = document.getElementById('text-display');
+    //creating HTML elements from local audio files
+    loadAudio(sounds);
     window.addEventListener('keydown', logKey);
     
     function logKey(e) {
@@ -170,10 +130,12 @@
         k = e.key.toUpperCase();
         if("ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(k) > -1){
           field.textContent = e.key.toUpperCase();
-          playSound(k);
+          //playing the newly created audio element from loadAudio
+          document.getElementById(k).play();
         }  
       }
     }
+
   </script>
 
 
