@@ -169,15 +169,6 @@ textarea {
   clear: both;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
-}
 
 @media print,
   (-webkit-min-device-pixel-ratio: 1.25),
@@ -265,7 +256,12 @@ textarea {
   font-family: sans-serif;
   font-weight: bold;
   font-size: 95vh;
-  /* -webkit-text-stroke: red 3vh; */
   text-align: center;
   line-height: 100%;
 }
+@media only screen and (max-width: 1024px) {
+  #text-display{
+    font-size: 95vw;
+  }
+}
+
