@@ -107,9 +107,7 @@
         url : "audio/Z.mp3"
       }
     };
-    var keyLock = false;
-    var soundContext = new AudioContext();
-    
+        
     //load audio elements for each value of your sounds object on load
     function loadAudio(soundsObject){
       for (letter in soundsObject) {
@@ -126,14 +124,12 @@
     window.addEventListener('keydown', logKey);
     
     function logKey(e) {
-      if(keyLock === false){
-        k = e.key.toUpperCase();
-        if("ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(k) > -1){
-          field.textContent = e.key.toUpperCase();
-          //playing the newly created audio element from loadAudio
-          document.getElementById(k).play();
-        }  
-      }
+      k = e.key.toUpperCase();
+      if("ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(k) > -1){
+        field.textContent = e.key.toUpperCase();
+        //playing the newly created audio element from loadAudio
+        document.getElementById(k).play();
+      }  
     }
 
   </script>
